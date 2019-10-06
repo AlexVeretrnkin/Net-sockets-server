@@ -1,0 +1,67 @@
+<html>
+    <head>
+        Hey
+    </head>
+
+    <body>
+
+    <button onclick="leaveQueue()">
+        Leave queue
+    </button>
+
+    <button onclick="enterQueue()">
+        Enter queue
+    </button>
+
+    </body>
+
+    <script src = "/lib/socket.io.js">
+    </script>
+
+    <script type="text/javascript">
+
+      const socket = new io("ws://localhost:3001");
+        // new WebSocket("ws://localhost:3001");
+
+      socket.on('queue', function(data) {
+        console.log(data);
+      });
+
+      socket.on('connection', function(data) {
+        console.log(data);
+      });
+
+
+
+
+      /*socket.onopen = function() {
+        console.log("Соединение установлено.");
+      };
+
+      socket.onclose = function(event) {
+        if (event.wasClean) {
+          console.log('Соединение закрыто чисто');
+        } else {
+          console.log('Обрыв соединения'); // например, "убит" процесс сервера
+        }
+        console.log('Код: ' + event.code + ' причина: ' + event.reason);
+      };
+
+      socket.onmessage = function(event) {
+        console.log("Получены данные " + event.data);
+      };
+
+      socket.onerror = function(error) {
+        console.log("Ошибка " + error.message);
+      };*/
+
+      function enterQueue(){
+        socket.emit('queue', 'enter');
+      }
+
+      function leaveQueue(){
+        socket.emit('queue', 'leave');
+      }
+
+    </script>
+</html>
